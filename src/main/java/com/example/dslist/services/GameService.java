@@ -18,9 +18,6 @@ public class GameService {
     @Autowired
     private GameRepository gameRepository;
 
-    @Autowired
-    private GameListRepository gameListRepository;
-
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAll(){
         List<Game> games = gameRepository.findAll();
@@ -36,7 +33,7 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public List<GameMinDTO> findByList(Long listId){
-        List<GameMinProjection> result = gameListRepository.searchByList(listId);
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
         return result.stream().map(x -> new GameMinDTO(x)).toList();
     }
 }
