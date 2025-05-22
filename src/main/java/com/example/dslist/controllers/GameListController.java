@@ -1,0 +1,46 @@
+package com.example.dslist.controllers;
+
+import com.example.dslist.dto.GameListDTO;
+import com.example.dslist.dto.GameMinDTO;
+import com.example.dslist.services.GameListService;
+import com.example.dslist.services.GameService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(
+        value = "/lists" // URL: http://localhost:8080/list
+)
+@Tag(name = "Game List", description = "Game List API")
+public class GameListController {
+
+    @Autowired
+    private GameListService gameListService;
+    @Autowired
+    private GameService gameService;
+
+    @GetMapping()
+    @Operation(
+            summary = "Find all game lists",
+            description = "Returns a list of all game lists"
+    )
+    public List<GameListDTO> findAll() {
+        return gameListService.findAll();
+    }
+
+    @GetMapping(value = "/{listId}/games")
+    @Operation(
+            summary = "Find all games by list",
+            description = "Returns a list of all games by list"
+    )
+    public List<GameMinDTO> findByList(@PathVariable("listId") Long listId) {
+        return gameService.findByList(listId);
+    }
+}
