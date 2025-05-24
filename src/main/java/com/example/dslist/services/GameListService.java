@@ -42,4 +42,10 @@ public class GameListService {
             gameListRepository.updateBelongingPosition(listId, list.get(i).getId(), i);
         }
     }
+
+    @Transactional
+    public GameListDTO findById(Long listId){
+        GameListDTO result = new GameListDTO(gameListRepository.findById(listId).get());
+        return result;
+    }
 }

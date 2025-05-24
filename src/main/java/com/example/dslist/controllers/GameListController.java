@@ -51,4 +51,13 @@ public class GameListController {
                         @RequestBody replacementDTO replacementDTO) {
         gameListService.move(listId, replacementDTO.getSourceIndex(), replacementDTO.getDestinationIndex());
     }
+
+    @GetMapping(value = "/{listId}")
+    @Operation(
+            summary = "Find game list by ID",
+            description = "Returns a game list by ID"
+    )
+    public GameListDTO findById(@PathVariable("listId") Long listId) {
+        return gameListService.findById(listId);
+    }
 }
